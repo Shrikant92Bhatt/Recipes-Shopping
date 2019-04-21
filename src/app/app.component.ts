@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'guide';
+  feactureType:string = 'recipe';
+  
+  onNavigate(e){
+    this.feactureType = e;
+  }
 }
