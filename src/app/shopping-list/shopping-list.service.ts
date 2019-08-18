@@ -1,31 +1,32 @@
-import { Injectable, EventEmitter } from '@angular/core';
-import { Ingredients } from '../shared/ingredients.model'
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+import { Ingredients } from '../shared/ingredients.model';
+import { from } from 'rxjs';
 
 @Injectable()
 export class ShoppingListService {
-    ingredientChanged = new EventEmitter<Ingredients[]>();
-    private ingredients: Ingredients[] = [
-        new Ingredients('Tea ', 10),
-        new Ingredients('Suger', 5),
-        new Ingredients('Green-tea', 15)
-    ];
-    constructor() { }
+  ingredientChanged = new Subject<Ingredients[]>();
+  private ingredients: Ingredients[] = [
+    new Ingredients('Tea ', 10),
+    new Ingredients('Suger', 5),
+    new Ingredients('Green-tea', 15)
+  ];
+  constructor() {}
 
-    getIngredients() {
-        return this.ingredients.slice();
-    }
-    addIngredients(ingredient) {
-        this.ingredients.push(ingredient);
-        this.ingredientChanged.emit(this.ingredients.slice());
-    }
+  getIngredients() {
+    return this.ingredients.slice();
+  }
+  addIngredients(ingredient) {
+    this.ingredients.push(ingredient);
+    this.ingredientChanged.next(this.ingredients.slice());
+  }
 
-    addIngredient(ingredients: Ingredients[]) {
-        // ingredients.forEach((ingredient) => {
-        //     this.addIngredients(ingredient);
-        // })
+  addIngredient(ingredients: Ingredients[]) {
+    // ingredients.forEach((ingredient) => {
+    //     this.addIngredients(ingredient);
+    // })
 
-        this.ingredients.push(...ingredients);
-        this.ingredientChanged.emit(this.ingredients.slice());
-    }
-
+    this.ingredients.push(...ingredients);
+    this.ingredientChanged.next(this.ingredients.slice());
+  }
 }
