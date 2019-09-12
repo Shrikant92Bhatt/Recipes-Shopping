@@ -9,6 +9,7 @@ import { RecipeStartComponent } from './recipe-start/recipe-start.component';
 import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
 import { EditRecipeComponent } from './recipes/edit-recipe/edit-recipe.component';
 import { RecipeResolverService } from './recipes/recipe-resolver.service';
+import { AppAuthComponent } from './auth/auth.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/recipes', pathMatch: 'full' },
@@ -31,7 +32,8 @@ const routes: Routes = [
     ],
     resolve: [RecipeResolverService]
   },
-  { path: 'shopping-list', component: ShoppingListComponent }
+  { path: 'shopping-list', component: ShoppingListComponent },
+  { path: 'auth', component: AppAuthComponent }
   // { path: '/', component: Component },
   // { path: '**', pathMatch:'full', redirectTo: '/' }
 ];
@@ -42,4 +44,4 @@ const routes: Routes = [
   declarations: [],
   bootstrap: []
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
