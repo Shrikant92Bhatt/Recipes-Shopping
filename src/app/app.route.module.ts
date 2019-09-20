@@ -12,7 +12,7 @@ import { RecipeResolverService } from './recipes/recipe-resolver.service';
 import { AppAuthComponent } from './auth/auth.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/recipes', pathMatch: 'full' },
+  { path: '', redirectTo: '/auth', pathMatch: 'full' },
   {
     path: 'recipes',
     component: RecipesComponent,
@@ -30,7 +30,7 @@ const routes: Routes = [
         resolve: [RecipeResolverService]
       }
     ],
-    resolve: [RecipeResolverService]
+
   },
   { path: 'shopping-list', component: ShoppingListComponent },
   { path: 'auth', component: AppAuthComponent }

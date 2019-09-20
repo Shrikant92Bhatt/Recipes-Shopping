@@ -5,10 +5,10 @@
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li routerLinkActive="active">
+        <li routerLinkActive="active" *ngIf="isUserLogin">
           <a routerLink="recipes">Recipes</a>
         </li>
-        <li routerLinkActive="active">
+        <li routerLinkActive="active" *ngIf="!isUserLogin">
           <a routerLink="auth">Authenticate</a>
         </li>
         <li routerLinkActive="active">
@@ -16,7 +16,10 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown" appdropdown>
+        <li *ngIf="isUserLogin">
+          <a (click)="onLogout()">Logout</a>
+        </li>
+        <li class="dropdown" appdropdown *ngIf="isUserLogin">
           <a class="dropdown-toggle" role="button">Manage <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a (click)="onSaveData()">Save data</a></li>

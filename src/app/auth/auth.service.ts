@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { throwError } from 'rxjs/internal/observable/throwError';
+import { Subject, BehaviorSubject } from 'rxjs';
+import { User } from './user.model';
 
 export interface AuthResponseData {
     kind?: string;
@@ -15,6 +17,7 @@ export interface AuthResponseData {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+    user = new BehaviorSubject<User>(null);
     constructor (private http: HttpClient) { }
 
     signUp(email: string, password: string) {
@@ -28,11 +31,12 @@ export class AuthService {
                 }
             )
             .pipe(
-                catchError(errorRes => {
-                    console.error(errorRes);
-                    return this.handelError(errorRes);
+                catchError(this.handelError),
+                tap(resp => {
+                    this.handelAuthentication(resp.email, resp.localId, resp.idToken, resp.expiresIn);
                 })
             );
+
     }
     signIn(email: string, pass: string) {
         return this.http
@@ -45,14 +49,18 @@ export class AuthService {
                 }
             )
             .pipe(
-                catchError(errorRes => {
-                    console.error(errorRes);
-                    return this.handelError(errorRes);
-
+                catchError(this.handelError),
+                tap(resp => {
+                    this.handelAuthentication(resp.email, resp.localId, resp.idToken, resp.expiresIn);
                 })
             );
     }
 
+    logOut() {
+        this.user.next(null);
+        localStorage.clear();
+
+    }
     private handelError(errorRes) {
         let errorMsg = 'An Unknown Error Occurred';
         if (!errorRes.error && !errorRes.error.error) {
@@ -88,5 +96,32 @@ export class AuthService {
                 break;
         }
         return throwError(errorMsg);
+    }
+
+    private handelAuthentication(email: string, userId: string, token: string, expiresIn: string) {
+        const tokenexperation = new Date(new Date().getTime() + + expiresIn * 1000);
+        const newUser = new User(email, userId, token, tokenexperation);
+        this.user.next(newUser);
+        localStorage.setItem('userData', JSON.stringify(newUser));
+    }
+
+    autoLogin() {
+        const userData: {
+            email: string,
+            id: string,
+            _token: string,
+            _tokenExpirationDate: string
+        } = JSON.parse(localStorage.getItem('userData'));
+
+        if (!userData) {
+            return;
+        }
+
+        const loadedUser = new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate));
+
+        if (loadedUser.token) {
+            this.user.next(loadedUser)
+        }
+
     }
 }
