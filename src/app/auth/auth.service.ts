@@ -18,6 +18,7 @@ export interface AuthResponseData {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
     user = new BehaviorSubject<User>(null);
+    tokenExpirationsTimer: any;
     constructor (private http: HttpClient) { }
 
     signUp(email: string, password: string) {
@@ -58,8 +59,12 @@ export class AuthService {
 
     logOut() {
         this.user.next(null);
-        localStorage.clear();
+        localStorage.removeItem('userData');
 
+        if (this.tokenExpirationsTimer) {
+            clearTimeout(this.tokenExpirationsTimer);
+        }
+        this.tokenExpirationsTimer = null;
     }
     private handelError(errorRes) {
         let errorMsg = 'An Unknown Error Occurred';
@@ -102,6 +107,7 @@ export class AuthService {
         const tokenexperation = new Date(new Date().getTime() + + expiresIn * 1000);
         const newUser = new User(email, userId, token, tokenexperation);
         this.user.next(newUser);
+        this.autoLogout(parseInt(expiresIn) * 1000);
         localStorage.setItem('userData', JSON.stringify(newUser));
     }
 
@@ -120,8 +126,16 @@ export class AuthService {
         const loadedUser = new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate));
 
         if (loadedUser.token) {
-            this.user.next(loadedUser)
+            this.user.next(loadedUser);
+            const tokenExperationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
+            this.autoLogout(tokenExperationDuration);
         }
 
+    }
+
+    autoLogout(expirationDuration: number) {
+        this.tokenExpirationsTimer = setTimeout(() => {
+            this.logOut();
+        }, expirationDuration);
     }
 }
