@@ -1,0 +1,26 @@
+<!-- <div class="backdrop"></div>
+<div class="alert-box">
+    <p>{{message}}</p>
+    <div class="alert-box-action">
+        <button class="btn btn-primary">Close</button>
+    </div>
+</div> -->
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" (click)="closeOneModal()">&times;</button>
+                <h4 class="modal-title">Error occured</h4>
+            </div>
+            <div class="modal-body">
+                <p>{{message}}.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"
+                    (click)="closeOneModal()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

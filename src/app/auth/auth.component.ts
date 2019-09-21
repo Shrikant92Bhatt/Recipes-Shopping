@@ -49,9 +49,9 @@ export class AppAuthComponent implements OnInit {
         console.error(errorMsg);
         this.isLoading = false;
         this.error = errorMsg;
-        setTimeout(() => {
-          this.error = null;
-        }, 7000);
+        // setTimeout(() => {
+        //   this.error = null;
+        // }, 7000);
       }
     );
 
