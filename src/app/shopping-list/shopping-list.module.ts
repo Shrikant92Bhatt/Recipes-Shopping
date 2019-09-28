@@ -8,7 +8,7 @@ import { AppSharedModule } from '../shared/shared.module';
 
 
 const routes: Routes = [
-    { path: 'shopping-list', component: ShoppingListComponent },
+    { path: '', component: ShoppingListComponent },
 ]
 @NgModule({
     imports: [AppSharedModule, FormsModule, ReactiveFormsModule, RouterModule.forChild(routes)],

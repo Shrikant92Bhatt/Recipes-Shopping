@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 
 @NgModule({
     imports: [CommonModule, FormsModule, AppSharedModule, RouterModule.forChild([
-        { path: 'auth', component: AppAuthComponent }
+        { path: '', component: AppAuthComponent }
     ])],
     declarations: [
         AppAuthComponent
