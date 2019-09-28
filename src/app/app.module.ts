@@ -5,12 +5,9 @@ import { HttpClientModule, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/c
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { ShoppingListComponent } from './shopping-list/shopping-list.component';
-import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { AppRoutingModule } from './app.route.module';
-import { EditRecipeComponent } from './recipes/edit-recipe/edit-recipe.component';
 import { RecipeService } from './recipes/recipe.service';
 import { AppAuthComponent } from './auth/auth.component';
 import { LoadingSpinnersComponent } from './shared/loading-spinner/loading-spinner.component';
@@ -18,15 +15,13 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { AlertComponent } from './shared/alert/alert.component';
 import { PlaceholderDirective } from './shared/placeholder/placeholder.directive';
 import { RecipeModule } from './recipes/recipe.module';
+import { ShoppingListModule } from './shopping-list/shopping-list.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    ShoppingListComponent,
-    ShoppingEditComponent,
     DropdownDirective,
-    EditRecipeComponent,
     AppAuthComponent,
     LoadingSpinnersComponent,
     AlertComponent,
@@ -39,6 +34,7 @@ import { RecipeModule } from './recipes/recipe.module';
     HttpClientModule,
     AppRoutingModule,
     RecipeModule,
+    ShoppingListModule
   ],
   entryComponents: [AlertComponent],
   exports: [AlertComponent],
