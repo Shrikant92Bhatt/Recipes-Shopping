@@ -10,10 +10,11 @@ import { RecipeItemComponent } from './recipe-list/recipe-item/recipe-item.compo
 import { RecipeStartComponent } from '../recipe-start/recipe-start.component';
 import { EditRecipeComponent } from './edit-recipe/edit-recipe.component';
 import { RecipesRoutingModule } from './recipes-routing.moudule';
+import { AppSharedModule } from '../shared/shared.module';
 
 @NgModule({
     imports: [
-        CommonModule,
+        AppSharedModule,
         RouterModule,
         ReactiveFormsModule,
         RecipesRoutingModule

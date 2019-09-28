@@ -5,27 +5,22 @@ import { HttpClientModule, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/c
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { DropdownDirective } from './shared/dropdown.directive';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { AppRoutingModule } from './app.route.module';
 import { RecipeService } from './recipes/recipe.service';
 import { AppAuthComponent } from './auth/auth.component';
-import { LoadingSpinnersComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { AlertComponent } from './shared/alert/alert.component';
-import { PlaceholderDirective } from './shared/placeholder/placeholder.directive';
 import { RecipeModule } from './recipes/recipe.module';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
+import { AppSharedModule } from './shared/shared.module';
+import { CoreModule } from './core.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    DropdownDirective,
-    AppAuthComponent,
-    LoadingSpinnersComponent,
-    AlertComponent,
-    PlaceholderDirective
+    AppAuthComponent
   ],
   imports: [
     BrowserModule,
@@ -34,11 +29,12 @@ import { ShoppingListModule } from './shopping-list/shopping-list.module';
     HttpClientModule,
     AppRoutingModule,
     RecipeModule,
-    ShoppingListModule
+    ShoppingListModule,
+    AppSharedModule,
+    CoreModule
   ],
-  entryComponents: [AlertComponent],
-  exports: [AlertComponent],
-  providers: [ShoppingListService, RecipeService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
+
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
