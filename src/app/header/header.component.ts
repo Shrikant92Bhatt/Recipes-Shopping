@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  private userSub: Subscription;
-  private isUserLogin = false;
+  public userSub: Subscription;
+  public isUserLogin = false;
   constructor (private dataStorageService: DataStorageService, private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
