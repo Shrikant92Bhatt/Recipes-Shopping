@@ -1,8 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ComponentFactoryResolver } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService, AuthResponseData } from './auth.service';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { Router } from '@angular/router';
+import { AlertComponent } from '../shared/alert/alert.component';
+import { PlaceholderDirective } from '../shared/placeholder/placeholder.directive';
 
 @Component({
   selector: 'app-auth',
@@ -14,8 +16,9 @@ export class AppAuthComponent implements OnInit {
   public error = null;
 
   @ViewChild('auth') authForm: NgForm;
+  @ViewChild(PlaceholderDirective) alertHost: PlaceholderDirective;
 
-  constructor (private authService: AuthService, private router: Router) { }
+  constructor (private authService: AuthService, private router: Router, private componentFactoryResolver: ComponentFactoryResolver) { }
 
   ngOnInit() { }
 
@@ -49,6 +52,7 @@ export class AppAuthComponent implements OnInit {
         console.error(errorMsg);
         this.isLoading = false;
         this.error = errorMsg;
+        this.showErrorAlert(errorMsg);
         // setTimeout(() => {
         //   this.error = null;
         // }, 7000);
@@ -57,4 +61,13 @@ export class AppAuthComponent implements OnInit {
 
     authForm.reset();
   }
+
+  private showErrorAlert(message: string) {
+    const alertFactory = this.componentFactoryResolver.resolveComponentFactory(AlertComponent);
+    const hostViewContainerRef = this.alertHost.viewContainerRef;
+    hostViewContainerRef.clear();
+    const componentRef = hostViewContainerRef.createComponent(alertFactory);
+    componentRef.instance.message = message;
+  }
+
 }
