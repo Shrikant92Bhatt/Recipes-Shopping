@@ -8,7 +8,6 @@ import { AppAuthComponent } from './auth/auth.component';
 const routes: Routes = [
   { path: '', redirectTo: '/auth', pathMatch: 'full' },
 
-  { path: 'auth', component: AppAuthComponent }
   // { path: '/', component: Component },
   // { path: '**', pathMatch:'full', redirectTo: '/' }
 ];
