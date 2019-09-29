@@ -1,15 +1,7 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 
+export class Ingredients {
 
-@NgModule({
-    imports: [ BrowserModule ],
-    declarations: [  ],
-    bootstrap:    [  ]
-})
-export class Ingredients { 
-    
-    constructor( public name:string, public amount:number){
-       
+    constructor (public name: string, public amount: number) {
+
     }
 }
