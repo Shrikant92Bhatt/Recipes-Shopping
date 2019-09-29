@@ -34,7 +34,7 @@ export class AlertComponent implements OnInit {
         }
     }
 
-    closeOneModal(modalId) {
+    closeOneModal() {
 
         // get modals
         const modals = document.getElementsByClassName('modal');
